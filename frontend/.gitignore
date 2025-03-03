@@ -25,3 +25,6 @@ dist-ssr
 
 # npm
 package-lock.json
+
+# Environment variables
+.env
