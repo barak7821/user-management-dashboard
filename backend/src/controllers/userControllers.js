@@ -17,9 +17,9 @@ export const login = async (req, res) => {
 }
 
 export const register = async (req, res) => {
-    const { userName, fullname, email, password } = req.body
+    const { userName, name, email, password } = req.body
     try {
-        if (!userName || !fullname || !email || !password) return res.status(400).json({ message: "All fields are required" })
+        if (!userName || !name || !email || !password) return res.status(400).json({ message: "All fields are required" })
         if (password.length < 8 || password.length > 20) return res.status(400).json({ message: "Password should be between 8 and 20 characters" })
 
         const checkEmail = await User.findOne({ email: email.toLowerCase() })
@@ -27,7 +27,7 @@ export const register = async (req, res) => {
 
         const newUser = new User({
             userName,
-            fullname,
+            name,
             email: email.toLowerCase(),
             password
         })
