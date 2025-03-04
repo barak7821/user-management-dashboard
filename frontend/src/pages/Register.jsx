@@ -55,15 +55,15 @@ export default function Register() {
     nav("/login")
   }
   return (
-    <div className='bg-gray-50 min-h-screen'>
+    <div className='bg-gray-400 min-h-screen flex flex-col'>
       <NavBar />
-      <div className='m-5 flex items-center justify-center mt-20'>
+      <div className='flex flex-grow items-center justify-center'>
         <div className='bg-gray-100 flex flex-row rounded-2xl shadow-lg max-w-4xl p-5 items-center'>
 
           {/* inputs & buttons */}
           <div className='md:w-1/2 px-16'>
             <h2 className='text-2xl font-bold text-blue-900'>Registration</h2>
-            <p className='text-sm mt-4 text-blue-900'>placeholder</p>
+            <p className='text-sm mt-4 text-blue-900'>Please register by completing the information below.</p>
 
             {/* inputs */}
             <form className='flex flex-col gap-4' onSubmit={handleSumbit}>

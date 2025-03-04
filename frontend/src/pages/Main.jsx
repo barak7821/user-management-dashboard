@@ -83,20 +83,36 @@ export default function MainPage() {
   }
 
   return (
-    <div className='bg-gray-50 min-h-screen'>
+    <div className='bg-gray-400 min-h-screen flex flex-col'>
       <NavBar />
-      <div className='m-5 flex items-center justify-center mt-10'>
+      <div className='flex flex-grow items-center justify-center'>
         <div className='bg-gray-100 flex flex-row rounded-2xl shadow-lg max-w-4xl p-10 items-center'>
-          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-            <input onChange={(e) => { setUpdateUserName(e.target.value) }} className='p-2 mt-4 rounded-xl bg-white' placeholder={userName} />
-            <input onChange={(e) => { setUpdateName(e.target.value) }} className='p-2 mt-4 rounded-xl bg-white' placeholder={name} />
-            <input onChange={(e) => { setUpdateEmail(e.target.value) }} className='p-2 mt-4 rounded-xl bg-white' placeholder={email} />
-            <input className='p-2 mt-4 rounded-xl bg-white' placeholder={formattedDate} disabled />
+          <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
+            <span className='flex items-center gap-4 p-1'>
+              <p className='font-semibold text-xl w-1/4'>User Name:</p>
+              <input onChange={(e) => { setUpdateUserName(e.target.value) }} className='p-2 rounded-xl bg-white w-3/4' placeholder={userName} />
+            </span>
+            <span className='flex items-center gap-4 p-1'>
+              <p className='font-semibold text-xl w-1/4'>Name:</p>
+              <input onChange={(e) => { setUpdateName(e.target.value) }} className='p-2 rounded-xl bg-white w-3/4' placeholder={name} />
+            </span>
+            <span className='flex items-center gap-4 p-1'>
+              <p className='font-semibold text-xl w-1/4'>Email:</p>
+              <input onChange={(e) => { setUpdateEmail(e.target.value) }} className='p-2 rounded-xl bg-white w-3/4' placeholder={email} />
+            </span>
+            <span className='flex items-center gap-4 p-1'>
+              <p className='font-semibold text-xl w-1/4'>Account Created:</p>
+              <input className='p-2 rounded-xl bg-white w-3/4' placeholder={formattedDate} disabled />
+            </span>
             {role &&
-              <input className='p-2 mt-4 rounded-xl bg-white' placeholder={role} disabled />
+              <span className='flex items-center gap-4 p-1'>
+                <p className='font-semibold text-xl w-1/4'>Role:</p>
+                <input className='p-2 mt-4 rounded-xl bg-white w-3/4' placeholder={role} disabled />
+              </span>
+
             }
-            <button type="submit">Update</button>
-            <button onClick={deleteUser} type="button">Delete User</button>
+            <button className='bg-blue-900 rounded-xl text-white py-2 w-full mt-5 cursor-pointer hover:scale-105 active:scale-95 duration-300' type="submit">Update</button>
+            <button onClick={deleteUser} className='bg-red-600 rounded-xl text-white py-2 w-full cursor-pointer hover:scale-105 active:scale-95 duration-300' type="button">Delete User</button>
           </form>
         </div>
       </div>

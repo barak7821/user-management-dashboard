@@ -47,9 +47,9 @@ export default function Login() {
   }
 
   return (
-    <div className='bg-gray-50 min-h-screen'>
+    <div className='bg-gray-400 min-h-screen flex flex-col'>
       <NavBar />
-      <div className='m-5 flex items-center justify-center mt-10'>
+      <div className='flex flex-grow items-center justify-center'>
         <div className='bg-gray-100 flex flex-row rounded-2xl shadow-lg max-w-4xl p-5 items-center'>
 
           {/* inputs & buttons */}
