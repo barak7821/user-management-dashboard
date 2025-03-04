@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import { useNavigate } from 'react-router-dom';
-import UserTable from '../components/UserTable';
+import AdminPanel from '../components/AdminPanel';
 
 export default function MainPage() {
   const nav = useNavigate()
@@ -146,7 +146,7 @@ export default function MainPage() {
             <div className="flex flex-col gap-4 items-center">
               {allUsers.length > 0 && (
                 <div className='rounded-xl border border-gray-300 w-[80%]'>
-                  <UserTable users={allUsers} />
+                  <AdminPanel users={allUsers} />
                 </div>
               )}
             </div>

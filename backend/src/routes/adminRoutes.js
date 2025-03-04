@@ -1,9 +1,12 @@
 import Express from "express"
-import { getUsers } from "../controllers/adminController.js"
+import { getUsersAdmin, deleteUserAdmin, updateUserById, getUserById } from "../controllers/adminController.js"
 import authMiddleware from "../middleware/authMiddleware.js"
 
 const router = Express.Router()
 
-router.get("/", authMiddleware, getUsers)
+router.get("/", authMiddleware, getUsersAdmin)
+router.get("/:userId", authMiddleware, getUserById)
+router.patch("/:userId", authMiddleware, updateUserById)
+router.delete("/delete", authMiddleware, deleteUserAdmin)
 
-export default router
+export default router 
