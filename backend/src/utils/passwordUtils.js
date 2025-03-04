@@ -1,20 +1,21 @@
 import bcrypt from "bcrypt"
 
+const SALT_ROUNDS = 12
+
 export async function hashPassword(password) {
     try {
-        const hashedPassword = await bcrypt.hash(password, 12)
-        return hashedPassword
+        return await bcrypt.hash(password, SALT_ROUNDS)
     } catch (error) {
         console.log("Error in hash password", error.message)
-        throw error
+        throw new Error("Failed to hash password")
     }
 }
 
 export async function checkPassword(password, hashedPassword) {
     try {
-        const isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
-        return isPasswordCorrect
+        return await bcrypt.compare(password, hashedPassword)
     } catch (error) {
         console.log("Error in comparing password", error.message)
+        return false
     }
 }

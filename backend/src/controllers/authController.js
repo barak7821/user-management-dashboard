@@ -1,5 +1,6 @@
 import User from "../models/userModel.js"
 import { hashPassword, checkPassword } from "../utils/passwordUtils.js"
+import jwt from "jsonwebtoken"
 
 export const login = async (req, res) => {
     const { email, password } = req.body
@@ -12,8 +13,10 @@ export const login = async (req, res) => {
         const isPasswordCorrect = await checkPassword(password, userData.password)
         if (!isPasswordCorrect) return res.status(401).json({ message: "Invalid email or password. Please try again." })
 
+        const token = jwt.sign({ id: userData._id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+
         console.log("Login successful.")
-        res.status(200).json({ message: "Login successful." })
+        res.status(200).json({ message: "Login successful.", token })
     } catch (error) {
         console.log("Error in login controller", error.message)
         res.status(500).json({ message: "Internal Server Error" })
@@ -40,13 +43,9 @@ export const register = async (req, res) => {
 
         await newUser.save()
         console.log(`${userName} added successfully`)
-        res.status(200).send(`${userName} added successfully`)
+        res.status(200).json({ message: `${userName} added successfully` })
     } catch (error) {
         console.log("Error in register controller", error.message)
         res.status(500).json({ message: "Internal Server Error" })
     }
-}
-
-export const logout = async (req, res) => {
-
 }

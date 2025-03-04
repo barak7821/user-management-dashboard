@@ -1,10 +1,11 @@
 import Express from "express"
-import { login, register, logout } from "../controllers/userControllers.js"
+import { deleteUser, getUser, updateUser } from "../controllers/UserController.js"
+import authMiddleware from "../middleware/authMiddleware.js"
 
-const userRouter = Express.Router()
+const router = Express.Router()
 
-userRouter.post("/login", login)
-userRouter.post("/register", register)
-userRouter.post("/logout", logout)
+router.get("/", authMiddleware, getUser)
+router.patch("/update", authMiddleware, updateUser)
+router.delete("/delete", authMiddleware, deleteUser)
 
-export default userRouter
+export default router

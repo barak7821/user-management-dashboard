@@ -16,26 +16,29 @@ export default function Login() {
     }
   })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    if (!email || !password) return notyf.error("Please fill out all fields. All fields are required.")
-    if (!email.includes("@")) return notyf.error("Please provide a valid email address.")
-    if (password.length < 8 || password.length === 20) return notyf.error("Your password should be between 8 and 20 characters.")
+    if (!email || !password) return notyf.error("All fields are required. Please fill them in.")
+    if (!email.includes("@")) return notyf.error("Please enter a valid email address.")
+    if (password.length < 8 || password.length < 20) return notyf.error("Your password must be between 8 and 20 characters long.")
 
     try {
-      const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/login`, {
+      const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/api/auth/login`, {
         email,
         password
       })
+
       console.log(response.data)
-      notyf.success("Login successful.")
+      localStorage.setItem("token", response.data.token)
+      notyf.success("Login successful! Redirecting...")
       nav("/")
     } catch (error) {
-      console.log(error)
+      console.log("Login error:", error)
       if (error.response.status === 401) return notyf.error("Invalid email or password. Please try again.")
+      notyf.error("Something went wrong. Please try again later.")
     }
   }
 

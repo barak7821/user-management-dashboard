@@ -25,31 +25,29 @@ export default function Register() {
 
   const handleSumbit = async (e) => {
     e.preventDefault()
-    if (userName.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0) return notyf.error("Please fill out all fields. All fields are required.")
-    if (userName.length < 6) return notyf.error("Your username should be at least 6 characters long.")
-    if (name.length < 2) return notyf.error("Your name should be at least 2 characters long.")
-    if (!email.includes("@")) return notyf.error("Please provide a valid email address.")
-    if (password.length < 8 || password.length === 20) return notyf.error("Your password should be between 8 and 20 characters.")
-    if (confirmPassword !== password) return notyf.error("The passwords do not match. Please ensure both fields are identical.")
+    if (userName.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0)
+      return notyf.error("Please fill out all fields. All fields are required.")
+    if (userName.length < 6) return notyf.error("Your username must be at least 6 characters long.")
+    if (name.length < 2) return notyf.error("Your name must be at least 2 characters long.")
+    if (!email.includes("@")) return notyf.error("Please enter a valid email address.")
+    if (password.length < 8 || password.length > 20) return notyf.error("Your password must be between 8 and 20 characters long.")
+    if (confirmPassword !== password) return notyf.error("The passwords do not match. Please try again.")
 
     try {
-      const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/register`, {
+      const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/api/auth/register`, {
         userName,
         name,
         email,
         password
       })
       console.log(response.data)
-      notyf.success("Registration successful.")
+      notyf.success("Registration successful! You can now log in.")
       nav("/")
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        notyf.error("Email already exists")
-      } else {
-        notyf.error("There was an issue with the registration.")
-      }
-      console.log(error)
-      console.log("Error response:", error.response)
+      console.log("Registration error:", error)
+      if (error.response.status === 409) return notyf.error("An account with this email already exists.")
+      if (error.response.status === 400) return notyf.error("Invalid input. Please check your details and try again.")
+      notyf.error("Something went wrong. Please try again later.")
     }
   }
 
