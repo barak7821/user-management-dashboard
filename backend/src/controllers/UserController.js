@@ -14,7 +14,7 @@ export const getUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-    const { userName, name, email } = req.body
+    const { userName, name, email, role } = req.body
     try {
         const userId = req.user.id
         const updateFields = {}
@@ -22,6 +22,7 @@ export const updateUser = async (req, res) => {
         if (userName) updateFields.userName = userName
         if (name) updateFields.name = name
         if (email) updateFields.email = email.toLowerCase()
+        if (role) updateFields.role = role
 
         if (Object.keys(updateFields).length === 0) return res.status(400).json({ message: "No fields to update" })
 
