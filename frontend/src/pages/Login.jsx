@@ -23,7 +23,7 @@ export default function Login() {
     e.preventDefault()
     if (!email || !password) return notyf.error("All fields are required. Please fill them in.")
     if (!email.includes("@")) return notyf.error("Please enter a valid email address.")
-    if (password.length < 8 || password.length < 20) return notyf.error("Your password must be between 8 and 20 characters long.")
+    if (password.length < 8 || password.length > 20) return notyf.error("Your password must be between 8 and 20 characters long.")
 
     try {
       const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/api/auth/login`, {
